@@ -17,18 +17,18 @@ namespace yzj
         public static void Main(string[] args)
         {
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-            //var host = CreateHostBuilder(args).Build();//.Run();
+            var host = CreateHostBuilder(args).Build();//.Run();
 
             try
             {
-                //using (IServiceScope scope = host.Services.CreateScope())
-                //{
-                //    IConfiguration configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-                //    string sqlString = configuration.GetSection("ConnectionStrings:MySqlConnection").Value;
-                //    NLogUtil.EnsureNlogConfig("Nlog.config", sqlString);
-                //}
-                //NLogUtil.WriteDBLog(NLog.LogLevel.Trace, LogType.Web, "网站启动成功");
-                //host.Run();
+                using (IServiceScope scope = host.Services.CreateScope())
+                {
+                    IConfiguration configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                    string sqlString = configuration.GetSection("ConnectionStrings:MySqlConnection").Value;
+                    NLogUtil.EnsureNlogConfig("Nlog.config", sqlString);
+                }
+                NLogUtil.WriteDBLog(NLog.LogLevel.Trace, LogType.Web, "网站启动成功");
+                host.Run();
                 logger.Debug("init main");
                 CreateHostBuilder(args).Build().Run();
             }

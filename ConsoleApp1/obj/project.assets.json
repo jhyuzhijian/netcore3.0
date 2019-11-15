@@ -4654,11 +4654,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Git\\yzj\\yzj\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "G:\\Git\\yzj\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "G:\\Git\\yzj\\yzj\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectPath": "G:\\Git\\yzj\\ConsoleApp1\\ConsoleApp1.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "G:\\Git\\yzj\\yzj\\ConsoleApp1\\obj\\",
+      "outputPath": "G:\\Git\\yzj\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
