@@ -61,8 +61,7 @@ namespace yzj
             {
                 //移除其他所有绑定的log插件
                 logging.ClearProviders();
-                logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                //logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);//设置日志输出最低级别(appsetting.json中的logging配置会覆盖这里的minilevel,和default节点一致)
+                logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);//设置日志输出最低级别(appsetting.json中的logging配置会覆盖这里的minilevel,和default节点一致)
             })
             .UseNLog()//注册NLog到core默认DI
             ;

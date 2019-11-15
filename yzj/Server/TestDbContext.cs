@@ -12,4 +12,9 @@ namespace yzj.Server
         public TestDbContext(DbContextOptions options) : base(options) { }
         public DbSet<TestModel> User_Login { get; set; }
     }
+    public class BasicDbContext : DbContext
+    {
+        public BasicDbContext(DbContextOptions options) : base(options) { }
+        public DbSet<Group> Group { get; set; }
+    }
 }

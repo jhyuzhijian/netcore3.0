@@ -33,10 +33,10 @@ namespace yzj
             string xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             services.AddControllers();
-            //services.AddDbContext<TestDbContext>(options =>
-            //{
-            //    options.UseMySQL(Configuration.GetConnectionString("mysqlCon"));
-            //});
+            services.AddDbContext<BasicDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("SqlConnection"));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
