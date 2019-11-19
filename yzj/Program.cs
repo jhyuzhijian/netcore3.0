@@ -27,10 +27,8 @@ namespace yzj
                     string sqlString = configuration.GetSection("ConnectionStrings:MySqlConnection").Value;
                     NLogUtil.EnsureNlogConfig("Nlog.config", sqlString);
                 }
-                NLogUtil.WriteDBLog(NLog.LogLevel.Trace, LogType.Web, "网站启动成功");
+                logger.Info("网站启动成功");
                 host.Run();
-                logger.Debug("init main");
-                CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
             {
@@ -65,5 +63,27 @@ namespace yzj
             })
             .UseNLog()//注册NLog到core默认DI
             ;
+        /// <summary>
+        /// 若不存在对应上下文的数据库，则创建对应数据库和架构
+        /// </summary>
+        /// <param name="host"></param>
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<Server.BasicDbContext>();
+                    context.Database.EnsureCreated();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger>();
+                    //var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
+        }
     }
 }

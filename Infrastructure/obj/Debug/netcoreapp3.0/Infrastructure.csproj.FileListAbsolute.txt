@@ -1,0 +1,8 @@
+G:\Git\yzj\Infrastructure\bin\Debug\netcoreapp3.0\Infrastructure.deps.json
+G:\Git\yzj\Infrastructure\bin\Debug\netcoreapp3.0\Infrastructure.dll
+G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.csprojAssemblyReference.cache
+G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.AssemblyInfoInputs.cache
+G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.AssemblyInfo.cs
+G:\Git\yzj\Infrastructure\bin\Debug\netcoreapp3.0\Infrastructure.pdb
+G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.dll
+G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.pdb

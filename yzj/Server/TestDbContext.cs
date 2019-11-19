@@ -14,7 +14,12 @@ namespace yzj.Server
     }
     public class BasicDbContext : DbContext
     {
-        public BasicDbContext(DbContextOptions options) : base(options) { }
-        public DbSet<Group> Group { get; set; }
+        public BasicDbContext(DbContextOptions<BasicDbContext> options) : base(options) { }
+        public DbSet<Group> Groups { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Group>().ToTable("Group", "User");
+        }
     }
 }
