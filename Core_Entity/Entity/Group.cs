@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Core_Entity
+namespace Core_Entity.Entity
 {
-    public class Group
+    
+    public class Group : IEntity
     {
         /// <summary>
         /// 编号
