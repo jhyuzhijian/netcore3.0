@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace yzj.Tool.Util
+namespace Infrastructure.Tool.Util
 {
     public enum LogType
     {

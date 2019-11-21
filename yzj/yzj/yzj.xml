@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>yzj</name>
+        <name>Core_WebAPI</name>
     </assembly>
     <members>
         <member name="M:yzj.Controllers.WeatherForecastController.Get(System.Int32)">
@@ -17,69 +17,11 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="P:yzj.Model.Group.Id">
-            <summary>
-            编号
-            </summary>
-        </member>
-        <member name="P:yzj.Model.Group.Name">
-            <summary>
-            部门名称
-            </summary>
-        </member>
-        <member name="P:yzj.Model.Group.ParentId">
-            <summary>
-            父编号
-            </summary>
-        </member>
-        <member name="P:yzj.Model.Group.RankFlag">
-            <summary>
-            是否参加排行
-            </summary>
-        </member>
-        <member name="P:yzj.Model.Group.Status">
-            <summary>
-            状态
-            </summary>
-        </member>
-        <member name="P:yzj.Model.Group.ChildCount">
-            <summary>
-            子部门数量
-            </summary>
-        </member>
-        <member name="P:yzj.Model.Group.UserCount">
-            <summary>
-            单位人数
-            </summary>
-        </member>
-        <member name="P:yzj.Model.Group.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
         <member name="M:yzj.Program.CreateDbIfNotExists(Microsoft.Extensions.Hosting.IHost)">
             <summary>
             若不存在对应上下文的数据库，则创建对应数据库和架构
             </summary>
             <param name="host"></param>
-        </member>
-        <member name="M:yzj.Tool.Util.NLogUtil.WriteDBLog(NLog.LogLevel,yzj.Tool.Util.LogType,System.String,System.Exception)">
-            <summary>
-            写日志到数据库
-            </summary>
-            <param name="logLevel">日志等级</param>
-            <param name="logTyzpe">日志类型</param>
-            <param name="message">信息</param>
-            <param name="exception">异常</param>
-        </member>
-        <member name="M:yzj.Tool.Util.NLogUtil.WriteFileLog(NLog.LogLevel,yzj.Tool.Util.LogType,System.String,System.Exception)">
-            <summary>
-            写日志到文件
-            </summary>
-            <param name="logLevel">日志等级</param>
-            <param name="logType">日志类型</param>
-            <param name="message">信息</param>
-            <param name="exception">异常</param>
         </member>
     </members>
 </doc>

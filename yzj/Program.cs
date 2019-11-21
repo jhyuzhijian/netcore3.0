@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infrastructure;
+using Infrastructure.Tool.Util;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
-using yzj.Tool.Util;
 
 namespace yzj
 {
@@ -74,7 +75,7 @@ namespace yzj
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<Server.BasicDbContext>();
+                    var context = services.GetRequiredService<BasicDbContext>();
                     context.Database.EnsureCreated();
                 }
                 catch (Exception ex)

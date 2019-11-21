@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Core_Entity.Dto;
+using Infrastructure;
+using Infrastructure.AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using yzj.Server;
 
 namespace yzj.Controllers
 {
@@ -22,18 +24,17 @@ namespace yzj.Controllers
         {
             _logger = logger;
             _context = context;
-            _logger.LogDebug(1, "NLog injected into HomeController");
         }
         public string Index()
         {
-
             string groupName = string.Empty;
 
             var group = _context.Groups.FirstOrDefault();
+            Dto_Group dtoGroup = group.MapTo<Dto_Group>();
             groupName = group.Name;
 
             _logger.LogInformation("Hello, this is the index!");
-            return groupName;
+            return dtoGroup.GroupName;
         }
     }
 }

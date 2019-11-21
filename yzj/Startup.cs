@@ -1,27 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+using AutoMapper;
+using Infrastructure;
+using Infrastructure.AutoMapper;
+using Infrastructure.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using NLog.Extensions.Logging;
-using yzj.Server;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
-using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
-using Infrastructure;
-using Infrastructure.Model;
-using AutoMapper;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+
 
 //将所有controller定义为webapi，且无法针对某个控制器退出webapi的定义
 //[assembly:ApiController]
@@ -38,15 +31,14 @@ namespace yzj
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//应用程序所在目录
             string xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             //项目生成的xml文档
             string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             services.AddControllers();
-            services.AddDbContext<BasicDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("SqlConnection"));
-            });
+            //注入DBContext
+            services.AddDbContextToService<BasicDbContext>(DataBaseTypeEnum.SqlServer, Configuration.GetConnectionString("SqlConnection"));
             #region 通过dll注入服务
             //services.AddDataService();
             #endregion
@@ -56,6 +48,7 @@ namespace yzj
                 {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc; // 设置时区为 UTC
+                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 });
             #endregion
             #region swagger文档注入
@@ -83,6 +76,9 @@ namespace yzj
                 c.IncludeXmlComments(xmlPath);
             });
             #endregion
+            #region 自动注入Mapper映射规则
+            services.AddAutoMapper(MappingRegister.MapTypes());
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -102,6 +98,8 @@ namespace yzj
                 c.RoutePrefix = string.Empty;
             });
 
+            app.UseStateAutoMapper();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -114,7 +112,6 @@ namespace yzj
                      name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 //endpoints.MapControllerRoute(name: "areaRoute", "{area:exists}/{controller=Home}/{action=Index}"); // 区域路由
-                //endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"); // 默认路由
             });
         }
     }
