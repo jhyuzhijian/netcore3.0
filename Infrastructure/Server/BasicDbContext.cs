@@ -1,28 +1,26 @@
-﻿using Core_Entity.Entity;
-using Infrastructure.Server.EntityTypeConfiguration;
+﻿using Core_Entity;
+using Core_Entity.Entity;
+using Infrastructure.Server;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Infrastructure
 {
-    //public class entityTypeConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
-    //    where TEntity : class
-    //{
-    //    public void Configure(EntityTypeBuilder<TEntity> builder)
-    //    {
-    //        builder.ToTable("Role", "Right");
-    //    }
-    //}
+    //用仓储的方式去代替声明DBSet<T>,省的新加表要加的东西那么多
     public class BasicDbContext : DbContext
     {
         public BasicDbContext(DbContextOptions<BasicDbContext> options) : base(options) { }
-        public DbSet<Group> Groups { get; set; }
+        //public DbSet<Group> Groups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new BaseEntityTypeConfiguration<Role>());
-            modelBuilder.Entity<Group>().ToTable("Group", "User");
+
+            modelBuilder.ExecuteConfigurations();
+
+            base.OnModelCreating(modelBuilder);
+
         }
         public override int SaveChanges()
         {

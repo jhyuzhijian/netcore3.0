@@ -16,12 +16,7 @@ namespace Infrastructure.AutoMapper
                 .Select(Assembly.Load)
                 .SelectMany(c => c.ExportedTypes)
                 .Where(type => type.GetInterfaces().Contains(typeof(IProfile)));
-            //List<Type> types = new List<Type>();
-            //foreach (var item in allItem)
-            //{
-            //    var type = item.AsType();
-            //    types.Add(type);
-            //}
+            
             return allItem.ToArray();
         }
     }

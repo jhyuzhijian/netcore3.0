@@ -31,17 +31,17 @@ namespace yzj.Controllers
         {
             string groupName = string.Empty;
 
-            var group = _context.Groups.FirstOrDefault();
-            Dto_Group dtoGroup = group.MapTo<Dto_Group>();
-            groupName = group.Name;
+            //var group = _context.Groups.FirstOrDefault();
+            //Dto_Group dtoGroup = group.MapTo<Dto_Group>();
+            //groupName = group.Name;
 
             _logger.LogInformation("Hello, this is the index!");
-            return dtoGroup.GroupName;
+            return "";
         }
         public void Test()
         {
             var model = _context.Set<Role>().FirstOrDefault();
-
+            var model2 = _context.Set<Group>().FirstOrDefault();
 
         }
     }

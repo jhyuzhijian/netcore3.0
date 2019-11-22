@@ -13,7 +13,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       //"launchUrl": "weatherforecast",
-      "launchUrl": "Home/Test",
+      "launchUrl": "api/Home/Test",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

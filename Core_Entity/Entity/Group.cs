@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Core_Entity.Entity
 {
-    
+    [Table("Group",Schema ="User")]
     public class Group : IEntity
     {
         /// <summary>
