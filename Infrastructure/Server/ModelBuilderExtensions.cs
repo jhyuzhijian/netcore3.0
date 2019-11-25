@@ -35,11 +35,26 @@ namespace Infrastructure.Server
             }
 
             var configurationTypes = allItem
-                .Where(type => typeof(IEntityTypeConfiguration<>).IsAssignableFrom(type))
+                .Where(type => type.GetInterfaces().Any(p => p.GetTypeInfo().IsGenericType && p.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)))
+            ;
+
+            var method = modelBuilder.GetType().GetMethods()
+                .Where(p => p.Name == "ApplyConfiguration")
+                .Where(p => p.IsGenericMethod)
+                .Where(p => p.ContainsGenericParameters && p.GetParameters().Any(s => s.ParameterType.Name == "IEntityTypeConfiguration`1"))
+                .First()
                 ;
             foreach (var configurationType in configurationTypes)
             {
-                Activator.CreateInstance(configurationType, modelBuilder);
+                //获取泛型参数的类型
+                var genericTypeArg = configurationType.GetInterfaces().Single().GenericTypeArguments.Single();
+
+                // 获取ModelBuilder的ApplyConfiguration方法的构造函数的MethodInfo对象
+                var genericEntityMethod = method.MakeGenericMethod(genericTypeArg);
+
+                // 调用ApplyConfiguration方法，加载继承IEntityTypeConfiguration<>类中定义的配置
+                var configurationInstance = Activator.CreateInstance(configurationType);
+                var entityBuilder = genericEntityMethod.Invoke(modelBuilder, new object[] { configurationInstance });
             }
 
         }
