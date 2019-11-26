@@ -1,7 +1,8 @@
 using AutoMapper;
 using Infrastructure;
 using Infrastructure.AutoMapper;
-using Infrastructure.Server;
+using Infrastructure.DbContextCore;
+using Infrastructure.DBContextCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +39,7 @@ namespace yzj
             string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             services.AddControllers();
             //注入DBContext
-            services.AddDbContextToService<BasicDbContext>(DataBaseTypeEnum.SqlServer, Configuration.GetConnectionString("SqlConnection"));
+            services.AddDbContextToService<SqlServerDbContext>(DataBaseTypeEnum.SqlServer, Configuration.GetConnectionString("SqlConnection"));
             #region 通过dll注入服务
             //services.AddDataService();
             #endregion
@@ -76,7 +77,7 @@ namespace yzj
                 c.IncludeXmlComments(xmlPath);
             });
             #endregion
-            #region 自动注入Mapper映射规则
+            #region 自动注入AutoMapper映射规则
             services.AddAutoMapper(MappingRegister.MapTypes());
             #endregion
         }

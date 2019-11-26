@@ -6,7 +6,7 @@ using System.Text;
 using System.Linq;
 using Core_Entity;
 
-namespace Infrastructure.Server
+namespace Infrastructure.DBContextCore
 {
     public static class ModelBuilderExtensions
     {

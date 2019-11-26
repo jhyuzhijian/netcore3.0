@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Infrastructure.IDbContext;
 
 namespace yzj.Controllers
 {
@@ -21,8 +22,8 @@ namespace yzj.Controllers
     public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly BasicDbContext _context;
-        public HomeController(ILogger<HomeController> logger, BasicDbContext context)
+        private readonly IDbContextCore _context;
+        public HomeController(ILogger<HomeController> logger, IDbContextCore context)
         {
             _logger = logger;
             _context = context;
@@ -40,8 +41,15 @@ namespace yzj.Controllers
         }
         public void Test()
         {
-            var model = _context.Set<Role>().FirstOrDefault();
-            var model2 = _context.Set<Group>().FirstOrDefault();
+            var model = _context.GetDbSet<Role>().FirstOrDefault();
+            //var model2 = _context.Set<Group>().FirstOrDefault();
+            //model2.Name += "2";
+            var groupList = _context.GetDbSet<Group>().ToList();
+            _context.GetDbSet<Group>().AttachRange(groupList);
+            groupList.ForEach(p => p.Name += "3");
+            int i = _context.SaveChanges();
+            //groupList.ForEach(p => p.Name += "3");
+            //var i = _context.UpdateEntityList<Group>(groupList);
 
         }
     }

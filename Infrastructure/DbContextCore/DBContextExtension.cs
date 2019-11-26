@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure.IDbContext;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.Server
+namespace Infrastructure.DBContextCore
 {
     public static class DBContextExtension
     {
         public static IServiceCollection AddDbContextToService<DbContextRepository>(this IServiceCollection Services, DataBaseTypeEnum DataBaseType, string connectionString)
-            where DbContextRepository : DbContext
+            where DbContextRepository : DbContext, IDbContextCore
         {
             switch (DataBaseType)
             {
@@ -28,6 +29,7 @@ namespace Infrastructure.Server
                 case DataBaseTypeEnum.Oracle:
                     throw new Exception("暂不支持该数据库!");
             }
+            Services.AddTransient<IDbContextCore, DbContextRepository>();
             return Services;
         }
     }
