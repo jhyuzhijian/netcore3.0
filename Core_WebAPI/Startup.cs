@@ -32,10 +32,9 @@ namespace yzj
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//应用程序所在目录
-            string xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             //项目生成的xml文档
+            string xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             services.AddControllers();
             //注入DBContext
@@ -43,7 +42,7 @@ namespace yzj
             #region 通过dll注入服务
             //services.AddDataService();
             #endregion
-            #region json.net注入
+            // json.net注入
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 {
@@ -51,7 +50,6 @@ namespace yzj
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc; // 设置时区为 UTC
                     options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 });
-            #endregion
             #region swagger文档注入
             services.AddSwaggerGen(c =>
             {
@@ -77,9 +75,8 @@ namespace yzj
                 c.IncludeXmlComments(xmlPath);
             });
             #endregion
-            #region 自动注入AutoMapper映射规则
+            // 自动注入AutoMapper映射规则
             services.AddAutoMapper(MappingRegister.MapTypes());
-            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

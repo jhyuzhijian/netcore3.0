@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core_Entity.Entity
 {
-    [Table("Group",Schema ="User")]
+    [Table("Group", Schema = "User")]
     public class Group : IEntity
     {
         /// <summary>
@@ -53,5 +53,7 @@ namespace Core_Entity.Entity
         /// 排序
         /// </summary>
         public int? Sort { get; set; }
+        //[Timestamp]
+        //public TimeSpan timeSpan { get; set; }
     }
 }

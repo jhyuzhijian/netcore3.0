@@ -1,10 +1,12 @@
 ﻿using Core_Entity;
 using Core_Entity.Entity;
 using Infrastructure.DBContextCore;
+using Infrastructure.DbContextLog;
 using Infrastructure.IDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,9 +27,27 @@ namespace Infrastructure.DbContextCore
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-
+        #region 简易的logfactory
+        public static readonly ILoggerFactory MyLoggerFactory
+    = LoggerFactory.Create(builder =>
+    {
+        builder
+            .AddFilter((category, level) =>
+                category == DbLoggerCategory.Database.Command.Name
+                && level == LogLevel.Information)
+            .AddConsole();
+    });
+        #endregion
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            #region 所有EFCore查询语句都输出到日志中
+            //optionsBuilder
+            //    .UseLoggerFactory(new EFCoreFactory())
+            //    ;
+            //optionsBuilder.EnableSensitiveDataLogging();
+            #endregion
+            base.OnConfiguring(optionsBuilder);
+
             //optionsBuilder
             //   .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             //   ;

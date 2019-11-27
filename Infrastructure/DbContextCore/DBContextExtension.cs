@@ -9,19 +9,19 @@ namespace Infrastructure.DBContextCore
 {
     public static class DBContextExtension
     {
-        public static IServiceCollection AddDbContextToService<DbContextRepository>(this IServiceCollection Services, DataBaseTypeEnum DataBaseType, string connectionString)
-            where DbContextRepository : DbContext, IDbContextCore
+        public static IServiceCollection AddDbContextToService<TDbContext>(this IServiceCollection Services, DataBaseTypeEnum DataBaseType, string connectionString)
+            where TDbContext : DbContext, IDbContextCore
         {
             switch (DataBaseType)
             {
                 case DataBaseTypeEnum.SqlServer:
-                    Services.AddDbContext<DbContextRepository>(options =>
+                    Services.AddDbContext<TDbContext>(options =>
                     {
                         options.UseSqlServer(connectionString);
                     });
                     break;
                 case DataBaseTypeEnum.MySql:
-                    Services.AddDbContext<DbContextRepository>(options =>
+                    Services.AddDbContext<TDbContext>(options =>
                     {
                         options.UseMySQL(connectionString);
                     });
@@ -29,8 +29,9 @@ namespace Infrastructure.DBContextCore
                 case DataBaseTypeEnum.Oracle:
                     throw new Exception("暂不支持该数据库!");
             }
-            Services.AddTransient<IDbContextCore, DbContextRepository>();
+            Services.AddScoped<IDbContextCore, TDbContext>();
             return Services;
+
         }
     }
 }

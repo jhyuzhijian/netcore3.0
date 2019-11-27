@@ -34,8 +34,9 @@ namespace Infrastructure.Tool.Util
         public static void WriteDBLog(LogLevel logLevel, LogType logType, string message, Exception exception = null)
         {
             LogEventInfo theEvent = new LogEventInfo(logLevel, dbLogger.Name, message);
-            theEvent.Properties["LogType"] = dbLogger.ToString();
+            //theEvent.Properties["Logger"] = logType.ToString();
             theEvent.Exception = exception;
+            theEvent.LoggerName = logType.ToString();
             dbLogger.Log(theEvent);
         }
         /// <summary>
@@ -48,7 +49,7 @@ namespace Infrastructure.Tool.Util
         public static void WriteFileLog(LogLevel logLevel, LogType logType, string message, Exception exception = null)
         {
             LogEventInfo theEvent = new LogEventInfo(logLevel, fileLogger.Name, message);
-            theEvent.Properties["LogType"] = fileLogger.ToString();
+            theEvent.Properties["Logger"] = fileLogger.ToString();
             theEvent.Exception = exception;
             fileLogger.Log(theEvent);
         }

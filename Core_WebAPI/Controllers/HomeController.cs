@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Infrastructure.IDbContext;
+using Microsoft.Samples.EFLogging;
 
 namespace yzj.Controllers
 {
@@ -32,24 +33,22 @@ namespace yzj.Controllers
         {
             string groupName = string.Empty;
 
-            //var group = _context.Groups.FirstOrDefault();
-            //Dto_Group dtoGroup = group.MapTo<Dto_Group>();
-            //groupName = group.Name;
-
             _logger.LogInformation("Hello, this is the index!");
             return "";
         }
         public void Test()
         {
-            var model = _context.GetDbSet<Role>().FirstOrDefault();
-            //var model2 = _context.Set<Group>().FirstOrDefault();
-            //model2.Name += "2";
-            var groupList = _context.GetDbSet<Group>().ToList();
-            _context.GetDbSet<Group>().AttachRange(groupList);
-            groupList.ForEach(p => p.Name += "3");
-            int i = _context.SaveChanges();
+            //var model = _context.GetDbSet<Role>().FirstOrDefault();
+            string sql = "";
+            _context.GetDbSet<Group>().ConfigureLogging(p => sql = p, null);
+            var groupList = _context.GetDbSet<Group>()
+                .Where(p => p.Name.Contains("省"))
+                .Where(p => p.Id > 1)
+                .ToList();
+            //_context.GetDbSet<Group>().AttachRange(groupList);
             //groupList.ForEach(p => p.Name += "3");
-            //var i = _context.UpdateEntityList<Group>(groupList);
+            //int i = _context.SaveChanges();
+            var datatable = _context.GetDataTable("select * from [user].[group]", null);
 
         }
     }
