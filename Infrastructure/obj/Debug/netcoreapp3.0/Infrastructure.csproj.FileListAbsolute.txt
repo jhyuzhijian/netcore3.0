@@ -9,3 +9,4 @@ G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.AssemblyInfo.cs
 G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.csproj.CopyComplete
 G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.dll
 G:\Git\yzj\Infrastructure\obj\Debug\netcoreapp3.0\Infrastructure.pdb
+G:\Git\yzj\Infrastructure\bin\Debug\netcoreapp3.0\Core_Entity.xml

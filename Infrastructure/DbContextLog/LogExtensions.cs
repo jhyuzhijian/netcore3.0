@@ -104,7 +104,10 @@
 
         public ILogger CreateLogger(string categoryName)
         {
-            return new Logger(categoryName, this);
+            //注册logger实例的时候就限制创建数据库层面的Log
+            if (categoryName == DbLoggerCategory.Database.Command.Name)
+                return new Logger(categoryName, this);
+            return null;
         }
 
         public void Dispose()

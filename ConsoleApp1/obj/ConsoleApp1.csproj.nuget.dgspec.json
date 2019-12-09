@@ -115,7 +115,7 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
               "version": "[3.0.0, )"
             }
@@ -218,6 +218,14 @@
             "NLog.Web.AspNetCore": {
               "target": "Package",
               "version": "[4.9.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.0.601, )"
             }
           },
           "imports": [

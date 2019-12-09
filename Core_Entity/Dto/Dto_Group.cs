@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Core_Entity.Dto
 {
-   public class Dto_Group
+    public class Dto_Test
+    {
+        public int age { get; set; }
+        [Required]
+        public string address { get; set; }
+    }
+    public class Dto_Group
     {
         /// <summary>
         /// 部门名称

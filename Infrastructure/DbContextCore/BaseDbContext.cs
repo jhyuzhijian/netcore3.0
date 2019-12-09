@@ -19,13 +19,17 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.DbContextCore
 {
+    //EFCore3.0不支持lazy加载
     //用仓储的方式去代替声明DBSet<T>,省的新加表要加的东西那么多
     public abstract class BaseDbContext : DbContext, IDbContextCore
     {
         public DatabaseFacade GetDatabase() => base.Database;
         public BaseDbContext(DbContextOptions options) : base(options)
         {
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            ChangeTracker.AutoDetectChangesEnabled = false;
+            //ChangeTracker.databa
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
         }
         #region 简易的logfactory
         public static readonly ILoggerFactory MyLoggerFactory
@@ -46,6 +50,7 @@ namespace Infrastructure.DbContextCore
             //    ;
             //optionsBuilder.EnableSensitiveDataLogging();
             #endregion
+            //optionsBuilder.UseDatabaseNullSemantics
             base.OnConfiguring(optionsBuilder);
 
             //optionsBuilder
@@ -56,7 +61,8 @@ namespace Infrastructure.DbContextCore
         {
             //EF上下文
             modelBuilder.ExecuteConfigurations();
-
+            //modelBuilder.Entity<>().ToTable
+            //modelBuilder.ApplyConfiguration(new Core_Entity.Entity.EntityTypeConfiguration.OtherCreditConfigure());
             base.OnModelCreating(modelBuilder);
 
         }

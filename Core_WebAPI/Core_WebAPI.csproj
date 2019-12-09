@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>G:\Git\yzj\Core_WebAPI\Core_WebAPI.xml</DocumentationFile>
+    <DocumentationFile>G:\Git\yzj\Core_WebAPI\bin\Debug\netcoreapp3.0\Core_WebAPI.xml</DocumentationFile>
+    <OutputPath></OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

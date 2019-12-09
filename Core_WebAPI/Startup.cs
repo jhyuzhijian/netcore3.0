@@ -36,6 +36,8 @@ namespace yzj
             //项目生成的xml文档
             string xmlFile = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
             string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            string xmlEntityFile = Path.Combine(basePath, "Core_Entity.xml");
+            string xmlEntityPath = Path.Combine(AppContext.BaseDirectory, xmlEntityFile);
             services.AddControllers();
             //注入DBContext
             services.AddDbContextToService<SqlServerDbContext>(DataBaseTypeEnum.SqlServer, Configuration.GetConnectionString("SqlConnection"));
@@ -43,7 +45,7 @@ namespace yzj
             //services.AddDataService();
             #endregion
             // json.net注入
-            services.AddControllersWithViews()
+            services.AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
@@ -70,15 +72,17 @@ namespace yzj
                         Url = new Uri("https://example.com/license")
                     }
                 }); ;
+                //c.CustomSchemaIds(type => type.FullName);//如有相同类名则取消此行注释
                 //具有冲突（重复命名方法）取第一个
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlEntityPath);
             });
             #endregion
             // 自动注入AutoMapper映射规则
             services.AddAutoMapper(MappingRegister.MapTypes());
+            services.AddHttpClient();
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -92,8 +96,9 @@ namespace yzj
 
             app.UseSwaggerUI(c =>
             {
+                c.InjectJavascript("/swagger/ui/zh_CN.js");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = string.Empty;//swagger页面默认页
             });
 
             app.UseStateAutoMapper();
@@ -103,7 +108,7 @@ namespace yzj
             app.UseRouting();
 
             app.UseAuthorization();
-
+            //app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
