@@ -42,6 +42,7 @@ namespace yzj
             //注入DBContext
             services.AddDbContextToService<SqlServerDbContext>(DataBaseTypeEnum.SqlServer, Configuration.GetConnectionString("SqlConnection"));
             #region 通过dll注入服务
+            services.AddSingleton<Core_WebAPI.ServerTest>();
             //services.AddDataService();
             #endregion
             // json.net注入
@@ -71,7 +72,7 @@ namespace yzj
                         Name = "Nothing",
                         Url = new Uri("https://example.com/license")
                     }
-                }); ;
+                });
                 //c.CustomSchemaIds(type => type.FullName);//如有相同类名则取消此行注释
                 //具有冲突（重复命名方法）取第一个
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());

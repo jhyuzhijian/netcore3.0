@@ -16,7 +16,6 @@ namespace yzj
         {
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             var host = CreateHostBuilder(args).Build();//.Run();
-
             try
             {
                 using (IServiceScope scope = host.Services.CreateScope())

@@ -27,8 +27,8 @@ namespace Infrastructure.DbContextCore
         public BaseDbContext(DbContextOptions options) : base(options)
         {
             ChangeTracker.AutoDetectChangesEnabled = false;
-            //ChangeTracker.databa
-            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //关闭跟踪,对应detached的状态
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
         }
         #region 简易的logfactory

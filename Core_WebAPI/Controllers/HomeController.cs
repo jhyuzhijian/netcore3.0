@@ -47,6 +47,7 @@ namespace yzj.Controllers
         [HttpGet]
         public void Test()
         {
+            var hj = new Core_WebAPI.ServerTest(_context).GetGroup();
             //_context.GetDbSet<OtherCredit>().ConfigureLogging(p => sql.Add(p), null);
 
             //var list = _context.GetDbSet<OtherCredit>().ToList();
